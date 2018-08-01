@@ -1,0 +1,12 @@
+Testing on unit 01
+Best F measure for training: 0.00%
+Best threshold for training: 0.00
+Testing on unit 02
+Best F measure for training: 0.00%
+Best threshold for training: 0.00
+Traceback (most recent call last):
+  File "SplittingandEvaluating.py", line 50, in <module>
+    test_set, training_set = sp.split_units(split_id) 
+  File "/home/njw275/NJW-BirdVox/src/python_files/Split.py", line 5, in split_units
+    test_units = [units.pop(split_id)]
+IndexError: pop index out of range

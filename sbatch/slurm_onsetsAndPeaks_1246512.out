@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "onsetsAndPeaks.py", line 16, in <module>
+    Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 779, in __call__
+    while self.dispatch_one_batch(iterator):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 620, in dispatch_one_batch
+    tasks = BatchedCalls(itertools.islice(iterator, batch_size))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 127, in __init__
+    self.items = list(iterator_slice)
+  File "onsetsAndPeaks.py", line 16, in <genexpr>
+    Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+NameError: name 'createOnsetsAndPeaks' is not defined

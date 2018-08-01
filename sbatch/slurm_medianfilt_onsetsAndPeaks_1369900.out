@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "medianfilt_onsetsAndPeaks.py", line 16, in <module>
+    saveFile = "/scratch/njw275/detections/05_medianfilt/filtered/unit" + str(unit).zfill(2)
+NameError: name 'unit' is not defined

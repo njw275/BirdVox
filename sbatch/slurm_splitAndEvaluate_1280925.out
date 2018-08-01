@@ -1,0 +1,5 @@
+Testing on unit 01
+slurmstepd: error: Job 1280925 exceeded memory limit (9270784 > 8388608), being killed
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: *** JOB 1280925 ON c17-03 CANCELLED AT 2017-07-06T11:25:24 ***
+slurmstepd: error: Exceeded step memory limit at some point.

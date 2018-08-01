@@ -1,0 +1,222 @@
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 350, in __call__
+    return self.func(*args, **kwargs)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in __call__
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in <listcomp>
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "medianfilt_onsetsAndPeaks.py", line 28, in createOnsetsAndPeaks
+    # Peak picks (read from file above, write to a new file)
+NameError: name 'get_detections' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 119, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 359, in __call__
+    raise TransportableException(text, e_type)
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+NameError                                          Wed Jul 12 12:10:32 2017
+PID: 51530      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     23     #start_times = [0]
+     24     for start_time in start_times:
+     25         # Create onset detection function (writes to a file)
+     26         print(start_time)
+     27         det.onset(unit, start_time, fmin_input, h_length,feature)
+---> 28         # Peak picks (read from file above, write to a new file)
+        start_time = '6595'
+        start_times = ['6595', '25195', '9595', '33595', '14995', '4795', '25795', '36595', '7795', '35395', '16195', '17395', '5995', '26995', '1195', '32995', '19195', '16795', '1795', '10795', ...]
+     29     for start_time in start_times:
+     30         np.save(saveFile,scipy.signal.medfilt(get_detections(unit), kernel_size=k_size))
+     31         det.peak_picking(unit, start_time, h_duration)
+     32 
+
+NameError: name 'get_detections' is not defined
+___________________________________________________________________________
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 699, in retrieve
+    self._output.extend(job.get(timeout=self.timeout))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 608, in get
+    raise self._value
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+NameError                                          Wed Jul 12 12:10:32 2017
+PID: 51530      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     23     #start_times = [0]
+     24     for start_time in start_times:
+     25         # Create onset detection function (writes to a file)
+     26         print(start_time)
+     27         det.onset(unit, start_time, fmin_input, h_length,feature)
+---> 28         # Peak picks (read from file above, write to a new file)
+        start_time = '6595'
+        start_times = ['6595', '25195', '9595', '33595', '14995', '4795', '25795', '36595', '7795', '35395', '16195', '17395', '5995', '26995', '1195', '32995', '19195', '16795', '1795', '10795', ...]
+     29     for start_time in start_times:
+     30         np.save(saveFile,scipy.signal.medfilt(get_detections(unit), kernel_size=k_size))
+     31         det.peak_picking(unit, start_time, h_duration)
+     32 
+
+NameError: name 'get_detections' is not defined
+___________________________________________________________________________
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "medianfilt_onsetsAndPeaks.py", line 31, in <module>
+    det.peak_picking(unit, start_time, h_duration)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 789, in __call__
+    self.retrieve()
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 740, in retrieve
+    raise exception
+joblib.my_exceptions.JoblibNameError: JoblibNameError
+___________________________________________________________________________
+Multiprocessing exception:
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in <module>()
+     26         print(start_time)
+     27         det.onset(unit, start_time, fmin_input, h_length,feature)
+     28         # Peak picks (read from file above, write to a new file)
+     29     for start_time in start_times:
+     30         np.save(saveFile,scipy.signal.medfilt(get_detections(unit), kernel_size=k_size))
+---> 31         det.peak_picking(unit, start_time, h_duration)
+     32 
+     33 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=Parallel(n_jobs=-1), iterable=<generator object <genexpr>>)
+    784             if pre_dispatch == "all" or n_jobs == 1:
+    785                 # The iterable was consumed all at once by the above for loop.
+    786                 # No need to wait for async callbacks to trigger to
+    787                 # consumption.
+    788                 self._iterating = False
+--> 789             self.retrieve()
+        self.retrieve = <bound method Parallel.retrieve of Parallel(n_jobs=-1)>
+    790             # Make sure that we get a last message telling us we are done
+    791             elapsed_time = time.time() - self._start_time
+    792             self._print('Done %3i out of %3i | elapsed: %s finished',
+    793                         (len(self._output), len(self._output),
+
+---------------------------------------------------------------------------
+Sub-process traceback:
+---------------------------------------------------------------------------
+NameError                                          Wed Jul 12 12:10:32 2017
+PID: 51530      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     23     #start_times = [0]
+     24     for start_time in start_times:
+     25         # Create onset detection function (writes to a file)
+     26         print(start_time)
+     27         det.onset(unit, start_time, fmin_input, h_length,feature)
+---> 28         # Peak picks (read from file above, write to a new file)
+        start_time = '6595'
+        start_times = ['6595', '25195', '9595', '33595', '14995', '4795', '25795', '36595', '7795', '35395', '16195', '17395', '5995', '26995', '1195', '32995', '19195', '16795', '1795', '10795', ...]
+     29     for start_time in start_times:
+     30         np.save(saveFile,scipy.signal.medfilt(get_detections(unit), kernel_size=k_size))
+     31         det.peak_picking(unit, start_time, h_duration)
+     32 
+
+NameError: name 'get_detections' is not defined
+___________________________________________________________________________
+slurmstepd: error: Exceeded step memory limit at some point.

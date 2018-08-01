@@ -1,0 +1,234 @@
+Unit 10
+medianfilt_onsetsAndPeaks.py:54: ComplexWarning: Casting complex values to real discards the imaginary part
+  detections = detections.astype(float)
+Unit 05
+Unit 02
+Unit 07
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 350, in __call__
+    return self.func(*args, **kwargs)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in __call__
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in <listcomp>
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "medianfilt_onsetsAndPeaks.py", line 57, in createOnsetsAndPeaks
+    saveFile = p.get_filtered_detections(unit) + unit.zfill(2) + "_S_" + start_time + "_E_" + end_time
+AttributeError: 'int' object has no attribute 'zfill'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 119, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 359, in __call__
+    raise TransportableException(text, e_type)
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+AttributeError                                     Thu Jul 13 11:25:28 2017
+PID: 42659      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     52         check = "/scratch/njw275/detections/05_medianfilt/unit" + str(unit).zfill(2) + "/unit" + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections.npy"
+     53         detections = np.load(check)
+     54         detections = detections.astype(float)
+     55         filt_detections = sci.medfilt(detections, kernel_size=5)
+     56         filt_detections = np.array(filt_detections)
+---> 57         saveFile = p.get_filtered_detections(unit) + unit.zfill(2) + "_S_" + start_time + "_E_" + end_time
+        saveFile = '/scratch/njw275/detections/05_medianfilt/filtered/unit01'
+        unit = 1
+        unit.zfill = undefined
+        start_time = 6595
+        end_time = 7205
+     58         np.save(saveFile, filt_detections)
+     59         #det.peak_picking(unit, start_time, h_duration)
+     60 
+     61 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+AttributeError: 'int' object has no attribute 'zfill'
+___________________________________________________________________________
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 699, in retrieve
+    self._output.extend(job.get(timeout=self.timeout))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 608, in get
+    raise self._value
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+AttributeError                                     Thu Jul 13 11:25:28 2017
+PID: 42659      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     52         check = "/scratch/njw275/detections/05_medianfilt/unit" + str(unit).zfill(2) + "/unit" + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections.npy"
+     53         detections = np.load(check)
+     54         detections = detections.astype(float)
+     55         filt_detections = sci.medfilt(detections, kernel_size=5)
+     56         filt_detections = np.array(filt_detections)
+---> 57         saveFile = p.get_filtered_detections(unit) + unit.zfill(2) + "_S_" + start_time + "_E_" + end_time
+        saveFile = '/scratch/njw275/detections/05_medianfilt/filtered/unit01'
+        unit = 1
+        unit.zfill = undefined
+        start_time = 6595
+        end_time = 7205
+     58         np.save(saveFile, filt_detections)
+     59         #det.peak_picking(unit, start_time, h_duration)
+     60 
+     61 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+AttributeError: 'int' object has no attribute 'zfill'
+___________________________________________________________________________
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "medianfilt_onsetsAndPeaks.py", line 61, in <module>
+    Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 789, in __call__
+    self.retrieve()
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 740, in retrieve
+    raise exception
+joblib.my_exceptions.JoblibAttributeError: JoblibAttributeError
+___________________________________________________________________________
+Multiprocessing exception:
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in <module>()
+     56         filt_detections = np.array(filt_detections)
+     57         saveFile = p.get_filtered_detections(unit) + unit.zfill(2) + "_S_" + start_time + "_E_" + end_time
+     58         np.save(saveFile, filt_detections)
+     59         #det.peak_picking(unit, start_time, h_duration)
+     60 
+---> 61 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=Parallel(n_jobs=-1), iterable=<generator object <genexpr>>)
+    784             if pre_dispatch == "all" or n_jobs == 1:
+    785                 # The iterable was consumed all at once by the above for loop.
+    786                 # No need to wait for async callbacks to trigger to
+    787                 # consumption.
+    788                 self._iterating = False
+--> 789             self.retrieve()
+        self.retrieve = <bound method Parallel.retrieve of Parallel(n_jobs=-1)>
+    790             # Make sure that we get a last message telling us we are done
+    791             elapsed_time = time.time() - self._start_time
+    792             self._print('Done %3i out of %3i | elapsed: %s finished',
+    793                         (len(self._output), len(self._output),
+
+---------------------------------------------------------------------------
+Sub-process traceback:
+---------------------------------------------------------------------------
+AttributeError                                     Thu Jul 13 11:25:28 2017
+PID: 42659      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     52         check = "/scratch/njw275/detections/05_medianfilt/unit" + str(unit).zfill(2) + "/unit" + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections.npy"
+     53         detections = np.load(check)
+     54         detections = detections.astype(float)
+     55         filt_detections = sci.medfilt(detections, kernel_size=5)
+     56         filt_detections = np.array(filt_detections)
+---> 57         saveFile = p.get_filtered_detections(unit) + unit.zfill(2) + "_S_" + start_time + "_E_" + end_time
+        saveFile = '/scratch/njw275/detections/05_medianfilt/filtered/unit01'
+        unit = 1
+        unit.zfill = undefined
+        start_time = 6595
+        end_time = 7205
+     58         np.save(saveFile, filt_detections)
+     59         #det.peak_picking(unit, start_time, h_duration)
+     60 
+     61 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+AttributeError: 'int' object has no attribute 'zfill'
+___________________________________________________________________________

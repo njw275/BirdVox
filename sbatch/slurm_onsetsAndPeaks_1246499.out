@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "onsetsAndPeaks.py", line 16, in <module>
+    Parallel(N_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+TypeError: __init__() got an unexpected keyword argument 'N_jobs'

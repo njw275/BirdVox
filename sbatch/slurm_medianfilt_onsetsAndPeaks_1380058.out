@@ -1,0 +1,307 @@
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 350, in __call__
+    return self.func(*args, **kwargs)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in __call__
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in <listcomp>
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "medianfilt_onsetsAndPeaks.py", line 59, in createOnsetsAndPeaks
+    det.peak_picking(unit, start_time, h_duration)
+  File "/home/njw275/NJW-BirdVox/src/python_files/medianfilt_DetectionEvalSourceCode.py", line 75, in peak_picking
+    li = np.load(checkFile)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/numpy/lib/npyio.py", line 370, in load
+    fid = open(file, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 119, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 359, in __call__
+    raise TransportableException(text, e_type)
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+FileNotFoundError                                  Thu Jul 13 11:28:22 2017
+PID: 42970      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     54         detections = detections.astype(float)
+     55         filt_detections = sci.medfilt(detections, kernel_size=5)
+     56         filt_detections = np.array(filt_detections)
+     57         saveFile = p.get_filtered_detections(unit) + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time)
+     58         np.save(saveFile, filt_detections)
+---> 59         det.peak_picking(unit, start_time, h_duration)
+        unit = 1
+        start_time = 6595
+     60 
+     61 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_DetectionEvalSourceCode.py in peak_picking(unit=1, start_time=6595, hop_duration=0.011609977324263039)
+     70         end_time = 29483
+     71     else:
+     72         end_time = start_time+610
+     73 
+     74     checkFile = p.get_filtered_detections(unit) + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections.npy"
+---> 75     li = np.load(checkFile)
+        li = undefined
+        checkFile = '/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy'
+     76     #if medfilt_size is not None:
+     77         #pass # remove me
+     78         # apply scipy.signal.medfilt
+     79     peaks = []
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/numpy/lib/npyio.py in load(file='/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy', mmap_mode=None, allow_pickle=True, fix_imports=True, encoding='ASCII')
+    365     memmap([4, 5, 6])
+    366 
+    367     """
+    368     own_fid = False
+    369     if isinstance(file, basestring):
+--> 370         fid = open(file, "rb")
+        fid = undefined
+        file = '/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy'
+    371         own_fid = True
+    372     elif is_pathlib_path(file):
+    373         fid = file.open("rb")
+    374         own_fid = True
+
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy'
+___________________________________________________________________________
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 699, in retrieve
+    self._output.extend(job.get(timeout=self.timeout))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 608, in get
+    raise self._value
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+FileNotFoundError                                  Thu Jul 13 11:28:22 2017
+PID: 42970      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     54         detections = detections.astype(float)
+     55         filt_detections = sci.medfilt(detections, kernel_size=5)
+     56         filt_detections = np.array(filt_detections)
+     57         saveFile = p.get_filtered_detections(unit) + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time)
+     58         np.save(saveFile, filt_detections)
+---> 59         det.peak_picking(unit, start_time, h_duration)
+        unit = 1
+        start_time = 6595
+     60 
+     61 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_DetectionEvalSourceCode.py in peak_picking(unit=1, start_time=6595, hop_duration=0.011609977324263039)
+     70         end_time = 29483
+     71     else:
+     72         end_time = start_time+610
+     73 
+     74     checkFile = p.get_filtered_detections(unit) + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections.npy"
+---> 75     li = np.load(checkFile)
+        li = undefined
+        checkFile = '/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy'
+     76     #if medfilt_size is not None:
+     77         #pass # remove me
+     78         # apply scipy.signal.medfilt
+     79     peaks = []
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/numpy/lib/npyio.py in load(file='/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy', mmap_mode=None, allow_pickle=True, fix_imports=True, encoding='ASCII')
+    365     memmap([4, 5, 6])
+    366 
+    367     """
+    368     own_fid = False
+    369     if isinstance(file, basestring):
+--> 370         fid = open(file, "rb")
+        fid = undefined
+        file = '/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy'
+    371         own_fid = True
+    372     elif is_pathlib_path(file):
+    373         fid = file.open("rb")
+    374         own_fid = True
+
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy'
+___________________________________________________________________________
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "medianfilt_onsetsAndPeaks.py", line 61, in <module>
+    Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 789, in __call__
+    self.retrieve()
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 740, in retrieve
+    raise exception
+joblib.my_exceptions.JoblibFileNotFoundError: JoblibFileNotFoundError
+___________________________________________________________________________
+Multiprocessing exception:
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in <module>()
+     56         filt_detections = np.array(filt_detections)
+     57         saveFile = p.get_filtered_detections(unit) + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time)
+     58         np.save(saveFile, filt_detections)
+     59         det.peak_picking(unit, start_time, h_duration)
+     60 
+---> 61 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=Parallel(n_jobs=-1), iterable=<generator object <genexpr>>)
+    784             if pre_dispatch == "all" or n_jobs == 1:
+    785                 # The iterable was consumed all at once by the above for loop.
+    786                 # No need to wait for async callbacks to trigger to
+    787                 # consumption.
+    788                 self._iterating = False
+--> 789             self.retrieve()
+        self.retrieve = <bound method Parallel.retrieve of Parallel(n_jobs=-1)>
+    790             # Make sure that we get a last message telling us we are done
+    791             elapsed_time = time.time() - self._start_time
+    792             self._print('Done %3i out of %3i | elapsed: %s finished',
+    793                         (len(self._output), len(self._output),
+
+---------------------------------------------------------------------------
+Sub-process traceback:
+---------------------------------------------------------------------------
+FileNotFoundError                                  Thu Jul 13 11:28:22 2017
+PID: 42970      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     54         detections = detections.astype(float)
+     55         filt_detections = sci.medfilt(detections, kernel_size=5)
+     56         filt_detections = np.array(filt_detections)
+     57         saveFile = p.get_filtered_detections(unit) + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time)
+     58         np.save(saveFile, filt_detections)
+---> 59         det.peak_picking(unit, start_time, h_duration)
+        unit = 1
+        start_time = 6595
+     60 
+     61 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_DetectionEvalSourceCode.py in peak_picking(unit=1, start_time=6595, hop_duration=0.011609977324263039)
+     70         end_time = 29483
+     71     else:
+     72         end_time = start_time+610
+     73 
+     74     checkFile = p.get_filtered_detections(unit) + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections.npy"
+---> 75     li = np.load(checkFile)
+        li = undefined
+        checkFile = '/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy'
+     76     #if medfilt_size is not None:
+     77         #pass # remove me
+     78         # apply scipy.signal.medfilt
+     79     peaks = []
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/numpy/lib/npyio.py in load(file='/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy', mmap_mode=None, allow_pickle=True, fix_imports=True, encoding='ASCII')
+    365     memmap([4, 5, 6])
+    366 
+    367     """
+    368     own_fid = False
+    369     if isinstance(file, basestring):
+--> 370         fid = open(file, "rb")
+        fid = undefined
+        file = '/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy'
+    371         own_fid = True
+    372     elif is_pathlib_path(file):
+    373         fid = file.open("rb")
+    374         own_fid = True
+
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/njw275/detections/05_medianfilt/filtered/unit01/unit01_S_6595_E_7205_detections.npy'
+___________________________________________________________________________

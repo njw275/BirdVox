@@ -1,0 +1,2 @@
+slurmstepd: error: *** JOB 1208505 ON c26-14 CANCELLED AT 2017-06-29T14:47:27 DUE TO TIME LIMIT ***
+slurmstepd: error: Exceeded step memory limit at some point.

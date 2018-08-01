@@ -1,0 +1,4 @@
+Testing on unit 01
+slurmstepd: error: Job 1248814 exceeded memory limit (3354176 > 3145728), being killed
+slurmstepd: error: Exceeded job memory limit
+slurmstepd: error: *** JOB 1248814 ON c26-11 CANCELLED AT 2017-07-03T14:44:50 ***

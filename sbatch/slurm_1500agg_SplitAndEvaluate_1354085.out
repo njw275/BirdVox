@@ -1,0 +1,29 @@
+Testing on unit 01
+Best F measure for training: 0.04%
+Best threshold for training: 0.76
+Testing on unit 02
+Best F measure for training: 0.07%
+Best threshold for training: 0.76
+Testing on unit 03
+Best F measure for training: 0.06%
+Best threshold for training: 0.76
+Testing on unit 05
+Best F measure for training: 0.05%
+Best threshold for training: 0.76
+Testing on unit 07
+Best F measure for training: 0.05%
+Best threshold for training: 0.76
+Testing on unit 10
+Best F measure for training: 0.02%
+Best threshold for training: 1.17
+
+Test F Measures
+0.04154302670623145
+0.0016638935108153079
+0.0
+0.0
+0.0
+0.00672645739910314
+
+
+F test: 0.83% +/- 0.83

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "1000_SplittingandEvaluating.py", line 16, in <module>
+    epsilon = np.finfo(float).eps
+NameError: name 'np' is not defined

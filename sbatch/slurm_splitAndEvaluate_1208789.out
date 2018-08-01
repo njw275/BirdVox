@@ -1,0 +1,430 @@
+Testing on unit 01
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 350, in __call__
+    return self.func(*args, **kwargs)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in __call__
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in <listcomp>
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "/home/njw275/NJW-BirdVox/src/python_files/GetF.py", line 21, in get_F
+    Tp, Fp, Fn = det.threshold(unit, start_time, threshold)
+  File "/home/njw275/NJW-BirdVox/src/python_files/DetectionEvalSourceCode.py", line 140, in threshold
+    F, P, R = mir_eval.onset.f_measure(groundValues,predicted) #(reference_onsets, estimated_onsets)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/onset.py", line 87, in f_measure
+    validate(reference_onsets, estimated_onsets)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/onset.py", line 53, in validate
+    util.validate_events(onsets, MAX_TIME)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/util.py", line 771, in validate_events
+    'seconds?)'.format(events.max(), max_time))
+ValueError: An event at time 37204.511 was found which is greater than the maximum allowable time of max_time = 30000.0 (did you supply event times in seconds?)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 119, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 359, in __call__
+    raise TransportableException(text, e_type)
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+ValueError                                         Thu Jun 29 15:21:57 2017
+PID: 5720       Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function get_F>, ([2], 0.0), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function get_F>
+        args = ([2], 0.0)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/GetF.py in get_F(training_set=[2], threshold=0.0)
+     16 
+     17     for unit in training_set:
+     18         start_times = st.get_start_time(unit)
+     19         for start_time in start_times:
+     20 
+---> 21             Tp, Fp, Fn = det.threshold(unit, start_time, threshold)
+        Tp = 0.0
+        Fp = 10848.0
+        Fn = 1.0
+        unit = 2
+        start_time = '36595'
+        threshold = 0.0
+     22 #           find LOCAL num_onsets, true_pos, false_neg, false_pos
+     23             num_onsets += co.counting_onsets(unit, start_time)
+     24             true_pos += Tp
+     25             false_neg += Fn
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/DetectionEvalSourceCode.py in threshold(unit=2, start_time=36595, thresh=0.0)
+    135     groundValues = np.array(groundValues)
+    136     predicted = np.array(predicted)
+    137     
+    138     
+    139     
+--> 140     F, P, R = mir_eval.onset.f_measure(groundValues,predicted) #(reference_onsets, estimated_onsets)
+        F = undefined
+        P = undefined
+        R = undefined
+        groundValues = array([ 37204.511])
+        predicted = array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02])
+    141 
+    142     
+    143     Tp = float(len(util.match_events(groundValues, predicted,0.05)))
+    144     Fp = float(len(predicted)) - float(len(util.match_events(groundValues, predicted,0.05)))
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/onset.py in f_measure(reference_onsets=array([ 37204.511]), estimated_onsets=array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02]), window=0.05)
+     82         (# true positives)/(# true positives + # false positives)
+     83     recall : float
+     84         (# true positives)/(# true positives + # false negatives)
+     85 
+     86     """
+---> 87     validate(reference_onsets, estimated_onsets)
+        reference_onsets = array([ 37204.511])
+        estimated_onsets = array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02])
+     88     # If either list is empty, return 0s
+     89     if reference_onsets.size == 0 or estimated_onsets.size == 0:
+     90         return 0., 0., 0.
+     91     # Compute the best-case matching between reference and estimated onset
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/onset.py in validate(reference_onsets=array([ 37204.511]), estimated_onsets=array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02]))
+     48     if reference_onsets.size == 0:
+     49         warnings.warn("Reference onsets are empty.")
+     50     if estimated_onsets.size == 0:
+     51         warnings.warn("Estimated onsets are empty.")
+     52     for onsets in [reference_onsets, estimated_onsets]:
+---> 53         util.validate_events(onsets, MAX_TIME)
+        onsets = array([ 37204.511])
+     54 
+     55 
+     56 def f_measure(reference_onsets, estimated_onsets, window=.05):
+     57     """Compute the F-measure of correct vs incorrectly predicted onsets.
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/util.py in validate_events(events=array([ 37204.511]), max_time=30000.0)
+    766     # Make sure no event times are huge
+    767     if (events > max_time).any():
+    768         raise ValueError('An event at time {} was found which is greater than '
+    769                          'the maximum allowable time of max_time = {} (did you'
+    770                          ' supply event times in '
+--> 771                          'seconds?)'.format(events.max(), max_time))
+        events.max = <built-in method max of numpy.ndarray object>
+        max_time = 30000.0
+    772     # Make sure event locations are 1-d np ndarrays
+    773     if events.ndim != 1:
+    774         raise ValueError('Event times should be 1-d numpy ndarray, '
+    775                          'but shape={}'.format(events.shape))
+
+ValueError: An event at time 37204.511 was found which is greater than the maximum allowable time of max_time = 30000.0 (did you supply event times in seconds?)
+___________________________________________________________________________
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 699, in retrieve
+    self._output.extend(job.get(timeout=self.timeout))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 608, in get
+    raise self._value
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+ValueError                                         Thu Jun 29 15:21:57 2017
+PID: 5720       Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function get_F>, ([2], 0.0), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function get_F>
+        args = ([2], 0.0)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/GetF.py in get_F(training_set=[2], threshold=0.0)
+     16 
+     17     for unit in training_set:
+     18         start_times = st.get_start_time(unit)
+     19         for start_time in start_times:
+     20 
+---> 21             Tp, Fp, Fn = det.threshold(unit, start_time, threshold)
+        Tp = 0.0
+        Fp = 10848.0
+        Fn = 1.0
+        unit = 2
+        start_time = '36595'
+        threshold = 0.0
+     22 #           find LOCAL num_onsets, true_pos, false_neg, false_pos
+     23             num_onsets += co.counting_onsets(unit, start_time)
+     24             true_pos += Tp
+     25             false_neg += Fn
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/DetectionEvalSourceCode.py in threshold(unit=2, start_time=36595, thresh=0.0)
+    135     groundValues = np.array(groundValues)
+    136     predicted = np.array(predicted)
+    137     
+    138     
+    139     
+--> 140     F, P, R = mir_eval.onset.f_measure(groundValues,predicted) #(reference_onsets, estimated_onsets)
+        F = undefined
+        P = undefined
+        R = undefined
+        groundValues = array([ 37204.511])
+        predicted = array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02])
+    141 
+    142     
+    143     Tp = float(len(util.match_events(groundValues, predicted,0.05)))
+    144     Fp = float(len(predicted)) - float(len(util.match_events(groundValues, predicted,0.05)))
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/onset.py in f_measure(reference_onsets=array([ 37204.511]), estimated_onsets=array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02]), window=0.05)
+     82         (# true positives)/(# true positives + # false positives)
+     83     recall : float
+     84         (# true positives)/(# true positives + # false negatives)
+     85 
+     86     """
+---> 87     validate(reference_onsets, estimated_onsets)
+        reference_onsets = array([ 37204.511])
+        estimated_onsets = array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02])
+     88     # If either list is empty, return 0s
+     89     if reference_onsets.size == 0 or estimated_onsets.size == 0:
+     90         return 0., 0., 0.
+     91     # Compute the best-case matching between reference and estimated onset
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/onset.py in validate(reference_onsets=array([ 37204.511]), estimated_onsets=array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02]))
+     48     if reference_onsets.size == 0:
+     49         warnings.warn("Reference onsets are empty.")
+     50     if estimated_onsets.size == 0:
+     51         warnings.warn("Estimated onsets are empty.")
+     52     for onsets in [reference_onsets, estimated_onsets]:
+---> 53         util.validate_events(onsets, MAX_TIME)
+        onsets = array([ 37204.511])
+     54 
+     55 
+     56 def f_measure(reference_onsets, estimated_onsets, window=.05):
+     57     """Compute the F-measure of correct vs incorrectly predicted onsets.
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/util.py in validate_events(events=array([ 37204.511]), max_time=30000.0)
+    766     # Make sure no event times are huge
+    767     if (events > max_time).any():
+    768         raise ValueError('An event at time {} was found which is greater than '
+    769                          'the maximum allowable time of max_time = {} (did you'
+    770                          ' supply event times in '
+--> 771                          'seconds?)'.format(events.max(), max_time))
+        events.max = <built-in method max of numpy.ndarray object>
+        max_time = 30000.0
+    772     # Make sure event locations are 1-d np ndarrays
+    773     if events.ndim != 1:
+    774         raise ValueError('Event times should be 1-d numpy ndarray, '
+    775                          'but shape={}'.format(events.shape))
+
+ValueError: An event at time 37204.511 was found which is greater than the maximum allowable time of max_time = 30000.0 (did you supply event times in seconds?)
+___________________________________________________________________________
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "SplittingandEvaluating.py", line 54, in <module>
+    threshold_Fs = Parallel(n_jobs=-1)(delayed(gf.get_F)(training_set, th) for th in thresholds)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 789, in __call__
+    self.retrieve()
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 740, in retrieve
+    raise exception
+joblib.my_exceptions.JoblibValueError: JoblibValueError
+___________________________________________________________________________
+Multiprocessing exception:
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/SplittingandEvaluating.py in <module>()
+     49 for split_id in range(len(units)):
+     50     test_set, training_set = sp.split_units(split_id) 
+     51     #training_set.pop(training_set.index(10))
+     52     print("Testing on unit " + str(test_set[0]).zfill(2))
+     53     
+---> 54     threshold_Fs = Parallel(n_jobs=-1)(delayed(gf.get_F)(training_set, th) for th in thresholds)
+     55         
+     56     # find best threshold (argmax) and print it to slurm
+     57     best_threshold_id = np.argmax(threshold_Fs)
+     58     best_threshold = thresholds[best_threshold_id]
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=Parallel(n_jobs=-1), iterable=<generator object <genexpr>>)
+    784             if pre_dispatch == "all" or n_jobs == 1:
+    785                 # The iterable was consumed all at once by the above for loop.
+    786                 # No need to wait for async callbacks to trigger to
+    787                 # consumption.
+    788                 self._iterating = False
+--> 789             self.retrieve()
+        self.retrieve = <bound method Parallel.retrieve of Parallel(n_jobs=-1)>
+    790             # Make sure that we get a last message telling us we are done
+    791             elapsed_time = time.time() - self._start_time
+    792             self._print('Done %3i out of %3i | elapsed: %s finished',
+    793                         (len(self._output), len(self._output),
+
+---------------------------------------------------------------------------
+Sub-process traceback:
+---------------------------------------------------------------------------
+ValueError                                         Thu Jun 29 15:21:57 2017
+PID: 5720       Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function get_F>, ([2], 0.0), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function get_F>
+        args = ([2], 0.0)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/GetF.py in get_F(training_set=[2], threshold=0.0)
+     16 
+     17     for unit in training_set:
+     18         start_times = st.get_start_time(unit)
+     19         for start_time in start_times:
+     20 
+---> 21             Tp, Fp, Fn = det.threshold(unit, start_time, threshold)
+        Tp = 0.0
+        Fp = 10848.0
+        Fn = 1.0
+        unit = 2
+        start_time = '36595'
+        threshold = 0.0
+     22 #           find LOCAL num_onsets, true_pos, false_neg, false_pos
+     23             num_onsets += co.counting_onsets(unit, start_time)
+     24             true_pos += Tp
+     25             false_neg += Fn
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/DetectionEvalSourceCode.py in threshold(unit=2, start_time=36595, thresh=0.0)
+    135     groundValues = np.array(groundValues)
+    136     predicted = np.array(predicted)
+    137     
+    138     
+    139     
+--> 140     F, P, R = mir_eval.onset.f_measure(groundValues,predicted) #(reference_onsets, estimated_onsets)
+        F = undefined
+        P = undefined
+        R = undefined
+        groundValues = array([ 37204.511])
+        predicted = array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02])
+    141 
+    142     
+    143     Tp = float(len(util.match_events(groundValues, predicted,0.05)))
+    144     Fp = float(len(predicted)) - float(len(util.match_events(groundValues, predicted,0.05)))
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/onset.py in f_measure(reference_onsets=array([ 37204.511]), estimated_onsets=array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02]), window=0.05)
+     82         (# true positives)/(# true positives + # false positives)
+     83     recall : float
+     84         (# true positives)/(# true positives + # false negatives)
+     85 
+     86     """
+---> 87     validate(reference_onsets, estimated_onsets)
+        reference_onsets = array([ 37204.511])
+        estimated_onsets = array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02])
+     88     # If either list is empty, return 0s
+     89     if reference_onsets.size == 0 or estimated_onsets.size == 0:
+     90         return 0., 0., 0.
+     91     # Compute the best-case matching between reference and estimated onset
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/onset.py in validate(reference_onsets=array([ 37204.511]), estimated_onsets=array([  6.96598639e-02,   1.27709751e-01,   1.5...9790839e+02,   6.09872109e+02,   6.09953379e+02]))
+     48     if reference_onsets.size == 0:
+     49         warnings.warn("Reference onsets are empty.")
+     50     if estimated_onsets.size == 0:
+     51         warnings.warn("Estimated onsets are empty.")
+     52     for onsets in [reference_onsets, estimated_onsets]:
+---> 53         util.validate_events(onsets, MAX_TIME)
+        onsets = array([ 37204.511])
+     54 
+     55 
+     56 def f_measure(reference_onsets, estimated_onsets, window=.05):
+     57     """Compute the F-measure of correct vs incorrectly predicted onsets.
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/mir_eval/util.py in validate_events(events=array([ 37204.511]), max_time=30000.0)
+    766     # Make sure no event times are huge
+    767     if (events > max_time).any():
+    768         raise ValueError('An event at time {} was found which is greater than '
+    769                          'the maximum allowable time of max_time = {} (did you'
+    770                          ' supply event times in '
+--> 771                          'seconds?)'.format(events.max(), max_time))
+        events.max = <built-in method max of numpy.ndarray object>
+        max_time = 30000.0
+    772     # Make sure event locations are 1-d np ndarrays
+    773     if events.ndim != 1:
+    774         raise ValueError('Event times should be 1-d numpy ndarray, '
+    775                          'but shape={}'.format(events.shape))
+
+ValueError: An event at time 37204.511 was found which is greater than the maximum allowable time of max_time = 30000.0 (did you supply event times in seconds?)
+___________________________________________________________________________

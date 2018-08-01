@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "onsetsAndPeaks.py", line 13, in <module>
+    feature = librosa.stft
+NameError: name 'librosa' is not defined

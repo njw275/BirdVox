@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "onsetsAndPeaks.py", line 2, in <module>
+    import DetectionEvalSourceCode as det
+  File "/home/njw275/NJW-BirdVox/src/python_files/DetectionEvalSourceCode.py", line 43
+    S = librosa.logamplitude(S, ref=1.0)
+                                       ^
+TabError: inconsistent use of tabs and spaces in indentation

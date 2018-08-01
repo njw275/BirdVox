@@ -1,0 +1,391 @@
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 350, in __call__
+    return self.func(*args, **kwargs)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in __call__
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in <listcomp>
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "onsetsAndPeaks.py", line 24, in createOnsetsAndPeaks
+    det.onset(unit, start_time, fmin_input, h_length,feature)
+  File "/home/njw275/NJW-BirdVox/src/python_files/DetectionEvalSourceCode.py", line 42, in onset
+    onset_env = librosa.onset.onset_strength(y=y, sr=sr,fmin=fmin_input,hop_length=h_length,feature=feature_input)    #,fmin=1000)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/librosa/onset.py", line 321, in onset_strength
+    **kwargs)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/librosa/onset.py", line 509, in onset_strength_multi
+    S = np.abs(feature(y=y, sr=sr, **kwargs))
+TypeError: stft() got an unexpected keyword argument 'sr'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 119, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 359, in __call__
+    raise TransportableException(text, e_type)
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+TypeError                                          Thu Jul  6 13:17:31 2017
+PID: 21442      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     19     start_times = st.get_start_time(unit)
+     20     #start_times = [0]
+     21     for start_time in start_times:
+     22         # Create onset detection function (writes to a file)
+     23         print(start_time)
+---> 24         det.onset(unit, start_time, fmin_input, h_length,feature)
+        unit = 1
+        start_time = '6595'
+     25         # Peak picks (read from file above, write to a new file)
+     26         det.peak_picking(unit, start_time, h_duration)
+     27 
+     28 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/DetectionEvalSourceCode.py in onset(unit=1, start_time=6595, fmin_input=1500, h_length=256, feature_input=<function stft>)
+     37     y, sr = librosa.load(file, duration=duration_length)
+     38     
+     39     D = librosa.stft(y)
+     40     times = librosa.frames_to_time(np.arange(D.shape[1]))
+     41     
+---> 42     onset_env = librosa.onset.onset_strength(y=y, sr=sr,fmin=fmin_input,hop_length=h_length,feature=feature_input)    #,fmin=1000)
+        onset_env = undefined
+        y = array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32)
+        sr = 22050
+        fmin_input = 1500
+        h_length = 256
+        feature_input = <function stft>
+     43     # new keyword arguments: feature, aggregate
+     44     saveFile = p.get_detections(unit) + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections"
+     45     checkFile = p.get_data() + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections.npy"
+     46     np.save(saveFile, onset_env)
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/librosa/onset.py in onset_strength(y=array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32), sr=22050, S=None, lag=1, max_size=1, detrend=False, center=True, feature=<function stft>, aggregate=None, centering=None, **kwargs={'fmin': 1500, 'hop_length': 256})
+    316                                    detrend=detrend,
+    317                                    center=center,
+    318                                    feature=feature,
+    319                                    aggregate=aggregate,
+    320                                    channels=None,
+--> 321                                    **kwargs)
+        kwargs = {'fmin': 1500, 'hop_length': 256}
+    322 
+    323     return odf_all[0]
+    324 
+    325 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/librosa/onset.py in onset_strength_multi(y=array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32), sr=22050, S=None, lag=1, max_size=1, detrend=False, center=True, feature=<function stft>, aggregate=<function mean>, channels=None, **kwargs={'fmin': 1500, 'hop_length': 256})
+    504     if max_size < 1 or not isinstance(max_size, int):
+    505         raise ParameterError('max_size must be a positive integer')
+    506 
+    507     # First, compute mel spectrogram
+    508     if S is None:
+--> 509         S = np.abs(feature(y=y, sr=sr, **kwargs))
+        S = None
+        feature = <function stft>
+        y = array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32)
+        sr = 22050
+        kwargs = {'fmin': 1500, 'hop_length': 256}
+    510 
+    511         # Convert to dBs
+    512         S = core.power_to_db(S)
+    513 
+
+TypeError: stft() got an unexpected keyword argument 'sr'
+___________________________________________________________________________
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 699, in retrieve
+    self._output.extend(job.get(timeout=self.timeout))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 608, in get
+    raise self._value
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+TypeError                                          Thu Jul  6 13:17:31 2017
+PID: 21442      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     19     start_times = st.get_start_time(unit)
+     20     #start_times = [0]
+     21     for start_time in start_times:
+     22         # Create onset detection function (writes to a file)
+     23         print(start_time)
+---> 24         det.onset(unit, start_time, fmin_input, h_length,feature)
+        unit = 1
+        start_time = '6595'
+     25         # Peak picks (read from file above, write to a new file)
+     26         det.peak_picking(unit, start_time, h_duration)
+     27 
+     28 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/DetectionEvalSourceCode.py in onset(unit=1, start_time=6595, fmin_input=1500, h_length=256, feature_input=<function stft>)
+     37     y, sr = librosa.load(file, duration=duration_length)
+     38     
+     39     D = librosa.stft(y)
+     40     times = librosa.frames_to_time(np.arange(D.shape[1]))
+     41     
+---> 42     onset_env = librosa.onset.onset_strength(y=y, sr=sr,fmin=fmin_input,hop_length=h_length,feature=feature_input)    #,fmin=1000)
+        onset_env = undefined
+        y = array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32)
+        sr = 22050
+        fmin_input = 1500
+        h_length = 256
+        feature_input = <function stft>
+     43     # new keyword arguments: feature, aggregate
+     44     saveFile = p.get_detections(unit) + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections"
+     45     checkFile = p.get_data() + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections.npy"
+     46     np.save(saveFile, onset_env)
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/librosa/onset.py in onset_strength(y=array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32), sr=22050, S=None, lag=1, max_size=1, detrend=False, center=True, feature=<function stft>, aggregate=None, centering=None, **kwargs={'fmin': 1500, 'hop_length': 256})
+    316                                    detrend=detrend,
+    317                                    center=center,
+    318                                    feature=feature,
+    319                                    aggregate=aggregate,
+    320                                    channels=None,
+--> 321                                    **kwargs)
+        kwargs = {'fmin': 1500, 'hop_length': 256}
+    322 
+    323     return odf_all[0]
+    324 
+    325 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/librosa/onset.py in onset_strength_multi(y=array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32), sr=22050, S=None, lag=1, max_size=1, detrend=False, center=True, feature=<function stft>, aggregate=<function mean>, channels=None, **kwargs={'fmin': 1500, 'hop_length': 256})
+    504     if max_size < 1 or not isinstance(max_size, int):
+    505         raise ParameterError('max_size must be a positive integer')
+    506 
+    507     # First, compute mel spectrogram
+    508     if S is None:
+--> 509         S = np.abs(feature(y=y, sr=sr, **kwargs))
+        S = None
+        feature = <function stft>
+        y = array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32)
+        sr = 22050
+        kwargs = {'fmin': 1500, 'hop_length': 256}
+    510 
+    511         # Convert to dBs
+    512         S = core.power_to_db(S)
+    513 
+
+TypeError: stft() got an unexpected keyword argument 'sr'
+___________________________________________________________________________
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "onsetsAndPeaks.py", line 28, in <module>
+    Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 789, in __call__
+    self.retrieve()
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 740, in retrieve
+    raise exception
+joblib.my_exceptions.JoblibTypeError: JoblibTypeError
+___________________________________________________________________________
+Multiprocessing exception:
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/onsetsAndPeaks.py in <module>()
+     23         print(start_time)
+     24         det.onset(unit, start_time, fmin_input, h_length,feature)
+     25         # Peak picks (read from file above, write to a new file)
+     26         det.peak_picking(unit, start_time, h_duration)
+     27 
+---> 28 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+     29 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=Parallel(n_jobs=-1), iterable=<generator object <genexpr>>)
+    784             if pre_dispatch == "all" or n_jobs == 1:
+    785                 # The iterable was consumed all at once by the above for loop.
+    786                 # No need to wait for async callbacks to trigger to
+    787                 # consumption.
+    788                 self._iterating = False
+--> 789             self.retrieve()
+        self.retrieve = <bound method Parallel.retrieve of Parallel(n_jobs=-1)>
+    790             # Make sure that we get a last message telling us we are done
+    791             elapsed_time = time.time() - self._start_time
+    792             self._print('Done %3i out of %3i | elapsed: %s finished',
+    793                         (len(self._output), len(self._output),
+
+---------------------------------------------------------------------------
+Sub-process traceback:
+---------------------------------------------------------------------------
+TypeError                                          Thu Jul  6 13:17:31 2017
+PID: 21442      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     19     start_times = st.get_start_time(unit)
+     20     #start_times = [0]
+     21     for start_time in start_times:
+     22         # Create onset detection function (writes to a file)
+     23         print(start_time)
+---> 24         det.onset(unit, start_time, fmin_input, h_length,feature)
+        unit = 1
+        start_time = '6595'
+     25         # Peak picks (read from file above, write to a new file)
+     26         det.peak_picking(unit, start_time, h_duration)
+     27 
+     28 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/DetectionEvalSourceCode.py in onset(unit=1, start_time=6595, fmin_input=1500, h_length=256, feature_input=<function stft>)
+     37     y, sr = librosa.load(file, duration=duration_length)
+     38     
+     39     D = librosa.stft(y)
+     40     times = librosa.frames_to_time(np.arange(D.shape[1]))
+     41     
+---> 42     onset_env = librosa.onset.onset_strength(y=y, sr=sr,fmin=fmin_input,hop_length=h_length,feature=feature_input)    #,fmin=1000)
+        onset_env = undefined
+        y = array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32)
+        sr = 22050
+        fmin_input = 1500
+        h_length = 256
+        feature_input = <function stft>
+     43     # new keyword arguments: feature, aggregate
+     44     saveFile = p.get_detections(unit) + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections"
+     45     checkFile = p.get_data() + str(unit).zfill(2) + "_S_" + str(start_time) + "_E_" + str(end_time) + "_detections.npy"
+     46     np.save(saveFile, onset_env)
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/librosa/onset.py in onset_strength(y=array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32), sr=22050, S=None, lag=1, max_size=1, detrend=False, center=True, feature=<function stft>, aggregate=None, centering=None, **kwargs={'fmin': 1500, 'hop_length': 256})
+    316                                    detrend=detrend,
+    317                                    center=center,
+    318                                    feature=feature,
+    319                                    aggregate=aggregate,
+    320                                    channels=None,
+--> 321                                    **kwargs)
+        kwargs = {'fmin': 1500, 'hop_length': 256}
+    322 
+    323     return odf_all[0]
+    324 
+    325 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/librosa/onset.py in onset_strength_multi(y=array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32), sr=22050, S=None, lag=1, max_size=1, detrend=False, center=True, feature=<function stft>, aggregate=<function mean>, channels=None, **kwargs={'fmin': 1500, 'hop_length': 256})
+    504     if max_size < 1 or not isinstance(max_size, int):
+    505         raise ParameterError('max_size must be a positive integer')
+    506 
+    507     # First, compute mel spectrogram
+    508     if S is None:
+--> 509         S = np.abs(feature(y=y, sr=sr, **kwargs))
+        S = None
+        feature = <function stft>
+        y = array([-0.01554268, -0.01654687, -0.00124979, .....
+        0.00057004,  0.00061008], dtype=float32)
+        sr = 22050
+        kwargs = {'fmin': 1500, 'hop_length': 256}
+    510 
+    511         # Convert to dBs
+    512         S = core.power_to_db(S)
+    513 
+
+TypeError: stft() got an unexpected keyword argument 'sr'
+___________________________________________________________________________

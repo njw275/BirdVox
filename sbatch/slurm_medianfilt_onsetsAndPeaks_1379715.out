@@ -1,0 +1,526 @@
+Unit 05
+3595
+34195
+11995
+34795
+26995
+31195
+1195
+30595
+20395
+4795
+35395
+16795
+11395
+24595
+6595
+23995
+5995
+13795
+38995
+35995
+14395
+4195
+36595
+27595
+2995
+25195
+13195
+20995
+12595
+29995
+26395
+7795
+22195
+0
+22795
+1795
+15595
+32995
+25795
+10795
+17395
+19195
+8395
+32395
+28795
+38395
+19795
+31795
+28195
+21595
+10195
+7195
+9595
+37195
+5395
+2395
+18595
+23395
+37795
+29395
+8995
+16195
+14995
+17995
+33595
+Unit 02
+23395
+6595
+19795
+20395
+36595
+11995
+2395
+13195
+595
+25795
+15595
+28795
+29995
+37195
+5395
+22195
+35995
+0
+17395
+4195
+11395
+23995
+14995
+2995
+31195
+32395
+29395
+4795
+16195
+33595
+8395
+13795
+32995
+26395
+9595
+21595
+12595
+37795
+10795
+14395
+30595
+26995
+25195
+27595
+35395
+38395
+7195
+22795
+1795
+10195
+19195
+18595
+31795
+24595
+5995
+16795
+20995
+17995
+34195
+3595
+8995
+34795
+38995
+28195
+7795
+1195
+Unit 10
+595
+7795
+18595
+17995
+23995
+10795
+20395
+5995
+11395
+16195
+26395
+23395
+0
+3595
+14995
+19195
+1195
+5395
+14395
+29395
+2395
+12595
+11995
+22195
+28795
+2995
+13195
+8995
+17395
+26995
+20995
+9595
+19795
+21595
+10195
+22795
+1795
+15595
+16795
+24595
+4195
+7195
+28195
+8395
+27595
+6595
+13795
+25195
+4795
+25795
+Unit 03
+6595
+33595
+28195
+12595
+8395
+36595
+7795
+20995
+37195
+8995
+38395
+10195
+29395
+28795
+9595
+7195
+1195
+22795
+24595
+13795
+32995
+18595
+5995
+3595
+16195
+23395
+35395
+26395
+29995
+37795
+15595
+20395
+11395
+11995
+35995
+5395
+595
+26995
+30595
+27595
+17995
+17395
+19795
+4195
+14995
+34195
+23995
+31795
+16795
+22195
+13195
+14395
+25195
+4795
+2395
+19195
+0
+32395
+25795
+2995
+31195
+1795
+34795
+21595
+10795
+38995
+multiprocessing.pool.RemoteTraceback: 
+"""
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 350, in __call__
+    return self.func(*args, **kwargs)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in __call__
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 131, in <listcomp>
+    return [func(*args, **kwargs) for func, args, kwargs in self.items]
+  File "medianfilt_onsetsAndPeaks.py", line 32, in createOnsetsAndPeaks
+    filt_detections = sci.medfilt(detections, kernel_size=5)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/scipy/signal/signaltools.py", line 899, in medfilt
+    return sigtools._order_filterND(volume, domain, order)
+TypeError: Cannot cast array data from dtype('float64') to dtype('<U32') according to the rule 'safe'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 119, in worker
+    result = (True, func(*args, **kwds))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/_parallel_backends.py", line 359, in __call__
+    raise TransportableException(text, e_type)
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+TypeError                                          Thu Jul 13 10:14:35 2017
+PID: 34137      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     27         print(start_time)
+     28         #det.onset(unit, start_time, fmin_input, h_length,feature)
+     29         # Peak picks (read from file above, write to a new file)
+     30     for start_time in start_times:
+     31         detections = p.get_detections(unit)
+---> 32         filt_detections = sci.medfilt(detections, kernel_size=5)
+        filt_detections = undefined
+        detections = '/scratch/njw275/detections/05_medianfilt/unit01/unit'
+     33         saveFile = get_filtered_detections(unit)
+     34         np.save(saveFile, filt_detections)
+     35         #det.peak_picking(unit, start_time, h_duration)
+     36 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/scipy/signal/signaltools.py in medfilt(volume=array(['/scratch/njw275/detections/05_medianfilt/unit01/unit'],
+      dtype='<U52'), kernel_size=array([5]))
+    894 
+    895     domain = ones(kernel_size)
+    896 
+    897     numels = product(kernel_size, axis=0)
+    898     order = numels // 2
+--> 899     return sigtools._order_filterND(volume, domain, order)
+        volume = array(['/scratch/njw275/detections/05_medianfilt/unit01/unit'],
+      dtype='<U52')
+        domain = array([ 1.,  1.,  1.,  1.,  1.])
+        order = 2
+    900 
+    901 
+    902 def wiener(im, mysize=None, noise=None):
+    903     """
+
+TypeError: Cannot cast array data from dtype('float64') to dtype('<U32') according to the rule 'safe'
+___________________________________________________________________________
+"""
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 699, in retrieve
+    self._output.extend(job.get(timeout=self.timeout))
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/multiprocessing/pool.py", line 608, in get
+    raise self._value
+joblib.my_exceptions.TransportableException: TransportableException
+___________________________________________________________________________
+TypeError                                          Thu Jul 13 10:14:35 2017
+PID: 34137      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     27         print(start_time)
+     28         #det.onset(unit, start_time, fmin_input, h_length,feature)
+     29         # Peak picks (read from file above, write to a new file)
+     30     for start_time in start_times:
+     31         detections = p.get_detections(unit)
+---> 32         filt_detections = sci.medfilt(detections, kernel_size=5)
+        filt_detections = undefined
+        detections = '/scratch/njw275/detections/05_medianfilt/unit01/unit'
+     33         saveFile = get_filtered_detections(unit)
+     34         np.save(saveFile, filt_detections)
+     35         #det.peak_picking(unit, start_time, h_duration)
+     36 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/scipy/signal/signaltools.py in medfilt(volume=array(['/scratch/njw275/detections/05_medianfilt/unit01/unit'],
+      dtype='<U52'), kernel_size=array([5]))
+    894 
+    895     domain = ones(kernel_size)
+    896 
+    897     numels = product(kernel_size, axis=0)
+    898     order = numels // 2
+--> 899     return sigtools._order_filterND(volume, domain, order)
+        volume = array(['/scratch/njw275/detections/05_medianfilt/unit01/unit'],
+      dtype='<U52')
+        domain = array([ 1.,  1.,  1.,  1.,  1.])
+        order = 2
+    900 
+    901 
+    902 def wiener(im, mysize=None, noise=None):
+    903     """
+
+TypeError: Cannot cast array data from dtype('float64') to dtype('<U32') according to the rule 'safe'
+___________________________________________________________________________
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "medianfilt_onsetsAndPeaks.py", line 37, in <module>
+    Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 789, in __call__
+    self.retrieve()
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py", line 740, in retrieve
+    raise exception
+joblib.my_exceptions.JoblibTypeError: JoblibTypeError
+___________________________________________________________________________
+Multiprocessing exception:
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in <module>()
+     32         filt_detections = sci.medfilt(detections, kernel_size=5)
+     33         saveFile = get_filtered_detections(unit)
+     34         np.save(saveFile, filt_detections)
+     35         #det.peak_picking(unit, start_time, h_duration)
+     36 
+---> 37 Parallel(n_jobs=-1)(delayed(createOnsetsAndPeaks)(unit) for unit in units)
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=Parallel(n_jobs=-1), iterable=<generator object <genexpr>>)
+    784             if pre_dispatch == "all" or n_jobs == 1:
+    785                 # The iterable was consumed all at once by the above for loop.
+    786                 # No need to wait for async callbacks to trigger to
+    787                 # consumption.
+    788                 self._iterating = False
+--> 789             self.retrieve()
+        self.retrieve = <bound method Parallel.retrieve of Parallel(n_jobs=-1)>
+    790             # Make sure that we get a last message telling us we are done
+    791             elapsed_time = time.time() - self._start_time
+    792             self._print('Done %3i out of %3i | elapsed: %s finished',
+    793                         (len(self._output), len(self._output),
+
+---------------------------------------------------------------------------
+Sub-process traceback:
+---------------------------------------------------------------------------
+TypeError                                          Thu Jul 13 10:14:35 2017
+PID: 34137      Python 3.6.1: /home/njw275/miniconda3/envs/birds/bin/python
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in __call__(self=<joblib.parallel.BatchedCalls object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        self.items = [(<function createOnsetsAndPeaks>, (1,), {})]
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/joblib/parallel.py in <listcomp>(.0=<list_iterator object>)
+    126     def __init__(self, iterator_slice):
+    127         self.items = list(iterator_slice)
+    128         self._size = len(self.items)
+    129 
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+        func = <function createOnsetsAndPeaks>
+        args = (1,)
+        kwargs = {}
+    132 
+    133     def __len__(self):
+    134         return self._size
+    135 
+
+...........................................................................
+/home/njw275/NJW-BirdVox/src/python_files/medianfilt_onsetsAndPeaks.py in createOnsetsAndPeaks(unit=1)
+     27         print(start_time)
+     28         #det.onset(unit, start_time, fmin_input, h_length,feature)
+     29         # Peak picks (read from file above, write to a new file)
+     30     for start_time in start_times:
+     31         detections = p.get_detections(unit)
+---> 32         filt_detections = sci.medfilt(detections, kernel_size=5)
+        filt_detections = undefined
+        detections = '/scratch/njw275/detections/05_medianfilt/unit01/unit'
+     33         saveFile = get_filtered_detections(unit)
+     34         np.save(saveFile, filt_detections)
+     35         #det.peak_picking(unit, start_time, h_duration)
+     36 
+
+...........................................................................
+/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/scipy/signal/signaltools.py in medfilt(volume=array(['/scratch/njw275/detections/05_medianfilt/unit01/unit'],
+      dtype='<U52'), kernel_size=array([5]))
+    894 
+    895     domain = ones(kernel_size)
+    896 
+    897     numels = product(kernel_size, axis=0)
+    898     order = numels // 2
+--> 899     return sigtools._order_filterND(volume, domain, order)
+        volume = array(['/scratch/njw275/detections/05_medianfilt/unit01/unit'],
+      dtype='<U52')
+        domain = array([ 1.,  1.,  1.,  1.,  1.])
+        order = 2
+    900 
+    901 
+    902 def wiener(im, mysize=None, noise=None):
+    903     """
+
+TypeError: Cannot cast array data from dtype('float64') to dtype('<U32') according to the rule 'safe'
+___________________________________________________________________________

@@ -1,0 +1,2 @@
+/opt/slurm/data/slurmd/job1200568/slurm_script: line 15: 127720 Killed                  python onsetsAndPeaks.py
+slurmstepd: error: Exceeded step memory limit at some point.

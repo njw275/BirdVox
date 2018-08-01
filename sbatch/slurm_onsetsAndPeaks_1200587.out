@@ -1,0 +1,10 @@
+Unit 01
+6595
+Traceback (most recent call last):
+  File "onsetsAndPeaks.py", line 23, in <module>
+    det.peak_picking(unit, start_time, h_duration)
+  File "/home/njw275/NJW-BirdVox/src/python_files/DetectionEvalSourceCode.py", line 42, in peak_picking
+    li = np.load(checkFile)
+  File "/home/njw275/miniconda3/envs/birds/lib/python3.6/site-packages/numpy/lib/npyio.py", line 370, in load
+    fid = open(file, "rb")
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/njw275/01_S_6595_E_7205_detections.npy'

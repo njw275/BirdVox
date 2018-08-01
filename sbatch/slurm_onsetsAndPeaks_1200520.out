@@ -1,0 +1,7 @@
+Unit 01
+Traceback (most recent call last):
+  File "onsetsAndPeaks.py", line 16, in <module>
+    start_times = st.get_start_time(unit)
+  File "/home/njw275/NJW-BirdVox/src/python_files/startTimes.py", line 8, in get_start_time
+    for file in os.listdir(p.get_trimmed_annotation(unit)):
+AttributeError: module 'HPC_Paths' has no attribute 'get_trimmed_annotation'

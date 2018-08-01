@@ -1,0 +1,15 @@
+Testing on unit 01
+Best F measure for training: 0.00%
+Best threshold for training: 0.00
+Testing on unit 02
+Best F measure for training: 0.00%
+Best threshold for training: 0.00
+Testing on unit 03
+Best F measure for training: 0.00%
+Best threshold for training: 0.00
+Traceback (most recent call last):
+  File "SplittingandEvaluating.py", line 74, in <module>
+    Tp, Fp, Fn = det.threshold(unit, start_time, best_threshold)
+  File "/home/njw275/NJW-BirdVox/src/python_files/DetectionEvalSourceCode.py", line 130, in threshold
+    for line in open(truth,'r'):
+FileNotFoundError: [Errno 2] No such file or directory: '/scratch/njw275/trimmed_annotations/unit03/03_S_0_E_605.txt'

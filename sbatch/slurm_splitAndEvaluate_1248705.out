@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "SplittingandEvaluating.py", line 12, in <module>
+    import GetF as gf
+  File "/home/njw275/NJW-BirdVox/src/python_files/GetF.py", line 20
+    print(start_time)
+                    ^
+TabError: inconsistent use of tabs and spaces in indentation
